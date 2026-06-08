@@ -3,12 +3,10 @@ import { BOARD_WIDTH, BOARD_HEIGHT } from '../utils/constants';
 import { PIECE_COLORS, GHOST_COLORS } from '../utils/constants';
 import styles from '../styles/GameBoard.module.css';
 
-export default function GameBoard({ board, currentPiece, pos, ghost }) {
+export default function GameBoard({ board, currentPiece, pos, ghost, gameOver, onRestart }) {
   const renderedBoard = useMemo(() => {
-    // start with board copy: each cell is null or a piece key
     let display = board.map(row => row.map(cell => cell ? { key: cell, type: 'placed' } : null));
 
-    // Draw ghost
     if (currentPiece && ghost) {
       for (let r = 0; r < currentPiece.shape.length; r++) {
         for (let c = 0; c < currentPiece.shape[r].length; c++) {
@@ -25,7 +23,6 @@ export default function GameBoard({ board, currentPiece, pos, ghost }) {
       }
     }
 
-    // Draw current piece
     if (currentPiece) {
       for (let r = 0; r < currentPiece.shape.length; r++) {
         for (let c = 0; c < currentPiece.shape[r].length; c++) {
@@ -49,9 +46,7 @@ export default function GameBoard({ board, currentPiece, pos, ghost }) {
         {renderedBoard.map((row, r) => (
           <div key={r} className={styles.row}>
             {row.map((cell, c) => {
-              if (!cell) {
-                return <div key={c} className={styles.empty} />;
-              }
+              if (!cell) return <div key={c} className={styles.empty} />;
               if (cell.type === 'ghost') {
                 return (
                   <div
@@ -72,6 +67,15 @@ export default function GameBoard({ board, currentPiece, pos, ghost }) {
           </div>
         ))}
       </div>
+
+      {gameOver && (
+        <div className={styles.gameOverOverlay}>
+          <div className={styles.pixelText}>GAME OVER</div>
+          <button className={styles.restartBtn} onClick={onRestart}>
+            ▶ RESTART
+          </button>
+        </div>
+      )}
     </div>
   );
 }

@@ -21,11 +21,11 @@ export default function TextrisGame({ onBack }) {
   const handleKeyDown = useCallback((e) => {
     if (gameOver) return;
     switch (e.key) {
-      case 'ArrowLeft':  e.preventDefault(); moveLeft();   break;
-      case 'ArrowRight': e.preventDefault(); moveRight();  break;
-      case 'ArrowDown':  e.preventDefault(); moveDown();   break;
-      case 'ArrowUp':    e.preventDefault(); rotate();     break;
-      case ' ':          e.preventDefault(); hardDrop();   break;
+      case 'ArrowLeft': e.preventDefault(); moveLeft(); break;
+      case 'ArrowRight': e.preventDefault(); moveRight(); break;
+      case 'ArrowDown': e.preventDefault(); moveDown(); break;
+      case 'ArrowUp': e.preventDefault(); rotate(); break;
+      case ' ': e.preventDefault(); hardDrop(); break;
       case 'p': case 'P': pauseGame(); break;
       case 'Escape': onBack && onBack(); break;
     }
@@ -52,8 +52,14 @@ export default function TextrisGame({ onBack }) {
       <div className={styles.boardArea}>
         {!running && !gameOver && (
           <div className={styles.pauseOverlay}>PAUSED</div>
-        )}
-        <GameBoard board={board} currentPiece={currentPiece} pos={pos} ghost={ghost} />
+        )}<GameBoard
+          board={board}
+          currentPiece={currentPiece}
+          pos={pos}
+          ghost={ghost}
+          gameOver={gameOver}
+          onRestart={startGame}
+        />
       </div>
 
       <div className={styles.rightPanel}>

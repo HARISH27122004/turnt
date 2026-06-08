@@ -20,9 +20,9 @@ export default function SnakeGame({ onBack }) {
 
   const handleKeyDown = useCallback((e) => {
     switch (e.key) {
-      case 'ArrowUp':    e.preventDefault(); changeDirection(DIRECTIONS.UP);    break;
-      case 'ArrowDown':  e.preventDefault(); changeDirection(DIRECTIONS.DOWN);  break;
-      case 'ArrowLeft':  e.preventDefault(); changeDirection(DIRECTIONS.LEFT);  break;
+      case 'ArrowUp': e.preventDefault(); changeDirection(DIRECTIONS.UP); break;
+      case 'ArrowDown': e.preventDefault(); changeDirection(DIRECTIONS.DOWN); break;
+      case 'ArrowLeft': e.preventDefault(); changeDirection(DIRECTIONS.LEFT); break;
       case 'ArrowRight': e.preventDefault(); changeDirection(DIRECTIONS.RIGHT); break;
       case 'p': case 'P': pauseGame(); break;
       case 'Escape': onBack && onBack(); break;
@@ -51,7 +51,12 @@ export default function SnakeGame({ onBack }) {
         {!running && !gameOver && (
           <div className={styles.pauseOverlay}>PAUSED</div>
         )}
-        <SnakeBoard snake={snake} food={food} />
+        <SnakeBoard
+          snake={snake}
+          food={food}
+          gameOver={gameOver}
+          onRestart={startGame}
+        />
       </div>
 
       <div className={styles.rightPanel}>
