@@ -6,7 +6,8 @@ export function createEmptyBoard() {
 
 export function randomTetromino() {
   const key = TETROMINO_KEYS[Math.floor(Math.random() * TETROMINO_KEYS.length)];
-  return { ...TETROMINOES[key], key };
+  const t = TETROMINOES[key];
+  return { key, shape: t.shape.map(r => [...r]) };
 }
 
 export function rotatePiece(shape) {
@@ -34,12 +35,12 @@ export function isValidPosition(board, shape, pos) {
   return true;
 }
 
-export function placePiece(board, shape, pos, char) {
+export function placePiece(board, shape, pos, key) {
   const newBoard = board.map(row => [...row]);
   for (let r = 0; r < shape.length; r++) {
     for (let c = 0; c < shape[r].length; c++) {
       if (shape[r][c]) {
-        newBoard[pos.y + r][pos.x + c] = char;
+        newBoard[pos.y + r][pos.x + c] = key;
       }
     }
   }

@@ -1,0 +1,67 @@
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  min-width: 140px;
+}
+
+.title {
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  color: var(--text);
+  margin-bottom: 4px;
+}
+
+.scoreList {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.scoreItem {
+  display: flex;
+  gap: 6px;
+  font-size: 11px;
+  letter-spacing: 0.04em;
+}
+
+.rank  { color: var(--dim); width: 20px; text-align: right; flex-shrink: 0; }
+.name  { width: 32px; color: var(--text); flex-shrink: 0; }
+.score { color: var(--text); text-align: right; flex: 1; }
+
+.gameOver {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.gameOverText { font-size: 11px; letter-spacing: 0.08em; color: #42f55a; }
+.finalScore   { font-size: 11px; color: var(--text); }
+
+.restartBtn {
+  font-size: 11px; letter-spacing: 0.08em;
+  color: var(--text); background: none; border: none;
+  cursor: pointer; text-align: left; padding: 0;
+}
+.restartBtn:hover { color: var(--accent); text-decoration: underline; }
+
+.controls { margin-top: 8px; }
+
+.pauseBtn {
+  font-size: 11px; letter-spacing: 0.08em;
+  color: var(--dim); background: none; border: none; cursor: pointer; padding: 0;
+}
+.pauseBtn:hover { color: var(--text); }
+
+.hint { font-size: 11px; color: var(--dim); margin-top: auto; padding-top: 20px; }
+
+@media (max-width: 600px) {
+  .sidebar {
+    min-width: unset; width: 100%;
+    flex-direction: row; flex-wrap: wrap; gap: 12px; align-items: flex-start;
+  }
+  .title { width: 100%; }
+  .scoreList { flex: 1; }
+  .hint { padding-top: 0; width: 100%; }
+}

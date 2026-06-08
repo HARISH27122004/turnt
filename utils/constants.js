@@ -1,76 +1,77 @@
-export const BOARD_WIDTH = 60;
-export const BOARD_HEIGHT = 30;
+export const BOARD_WIDTH = 20;
+export const BOARD_HEIGHT = 22;
+
+export const PIECE_COLORS = {
+  O: '#f5e642',  // yellow
+  I: '#42d4f5',  // cyan
+  T: '#a542f5',  // purple
+  S: '#42f55a',  // green
+  Z: '#f54242',  // red
+  J: '#4269f5',  // blue
+  L: '#f59e42',  // orange
+  Y: '#f542b8',  // pink
+  R: '#42f5d4',  // teal
+  A: '#f5a142',  // amber
+};
+
+export const GHOST_COLORS = {
+  O: '#5a5410',
+  I: '#104a5a',
+  T: '#3a1060',
+  S: '#10601a',
+  Z: '#601010',
+  J: '#101e60',
+  L: '#603a10',
+  Y: '#601040',
+  R: '#106050',
+  A: '#603810',
+};
 
 export const TETROMINOES = {
   O: {
-    char: 'O',
+    key: 'O',
     shape: [
       [1, 1],
       [1, 1],
     ],
   },
   I: {
-    char: 'I',
+    key: 'I',
     shape: [[1, 1, 1, 1]],
   },
   T: {
-    char: 'T',
+    key: 'T',
     shape: [
       [0, 1, 0],
       [1, 1, 1],
     ],
   },
   S: {
-    char: 'S',
+    key: 'S',
     shape: [
       [0, 1, 1],
       [1, 1, 0],
     ],
   },
   Z: {
-    char: 'Z',
+    key: 'Z',
     shape: [
       [1, 1, 0],
       [0, 1, 1],
     ],
   },
   J: {
-    char: 'J',
+    key: 'J',
     shape: [
       [1, 0, 0],
       [1, 1, 1],
     ],
   },
   L: {
-    char: 'L',
+    key: 'L',
     shape: [
       [0, 0, 1],
       [1, 1, 1],
-    ],
-  },
-  Y: {
-    char: 'Y',
-    shape: [
-      [0, 1, 0],
-      [0, 1, 0],
-      [1, 1, 0],
-    ],
-  },
-  R: {
-    char: 'R',
-    shape: [
-      [1, 1],
-      [1, 1],
-      [1, 1],
-      [1, 1],
-    ],
-  },
-  A: {
-    char: 'A',
-    shape: [
-      [0, 1, 0],
-      [1, 1, 1],
-      [1, 0, 1],
     ],
   },
 };

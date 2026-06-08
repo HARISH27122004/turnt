@@ -1,12 +1,7 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
 import {
-  createEmptyBoard,
-  randomTetromino,
-  rotatePiece,
-  isValidPosition,
-  placePiece,
-  clearLines,
-  getGhostPosition,
+  createEmptyBoard, randomTetromino, rotatePiece,
+  isValidPosition, placePiece, clearLines, getGhostPosition,
 } from '../utils/gameLogic';
 import { BOARD_WIDTH, BOARD_HEIGHT, LEVEL_SPEEDS, POINTS_PER_LINE, INITIAL_HIGHSCORES } from '../utils/constants';
 
@@ -21,7 +16,7 @@ export default function useTextris(onGameOver) {
   const [time, setTime] = useState(0);
   const [running, setRunning] = useState(false);
   const [gameOver, setGameOver] = useState(false);
-  const [highscores, setHighscores] = useState(INITIAL_HIGHSCORES);
+  const [highscores] = useState(INITIAL_HIGHSCORES);
 
   const boardRef = useRef(board);
   const posRef = useRef(pos);
@@ -47,21 +42,20 @@ export default function useTextris(onGameOver) {
     if (!isValidPosition(boardRef.current, piece.shape, startPos)) {
       setRunning(false);
       setGameOver(true);
-      if (onGameOver) onGameOver(scoreRef.current);
       return;
     }
 
     setCurrentPiece(piece);
     setPos(startPos);
     setNextPiece(randomTetromino());
-  }, [onGameOver]);
+  }, []);
 
   const lockPiece = useCallback(() => {
     const piece = currentPieceRef.current;
     const p = posRef.current;
     if (!piece) return;
 
-    const newBoard = placePiece(boardRef.current, piece.shape, p, piece.char);
+    const newBoard = placePiece(boardRef.current, piece.shape, p, piece.key);
     const { board: clearedBoard, linesCleared } = clearLines(newBoard);
 
     const newLines = linesRef.current + linesCleared;
@@ -73,18 +67,15 @@ export default function useTextris(onGameOver) {
     setLines(newLines);
     setLevel(newLevel);
     setScore(newScore);
-
     setCurrentPiece(null);
   }, []);
 
-  // Timer
   useEffect(() => {
     if (!running) return;
     const id = setInterval(() => setTime(t => t + 1), 1000);
     return () => clearInterval(id);
   }, [running]);
 
-  // Gravity
   useEffect(() => {
     if (!running || !currentPiece) return;
     const speed = LEVEL_SPEEDS[Math.min(level, LEVEL_SPEEDS.length - 1)];
@@ -99,7 +90,6 @@ export default function useTextris(onGameOver) {
     return () => clearInterval(id);
   }, [running, currentPiece, level, lockPiece]);
 
-  // Spawn after lock
   useEffect(() => {
     if (running && !currentPiece && !gameOver) {
       spawnPiece(nextPiece);
@@ -108,16 +98,14 @@ export default function useTextris(onGameOver) {
 
   const moveLeft = useCallback(() => {
     const newPos = { x: posRef.current.x - 1, y: posRef.current.y };
-    if (currentPieceRef.current && isValidPosition(boardRef.current, currentPieceRef.current.shape, newPos)) {
+    if (currentPieceRef.current && isValidPosition(boardRef.current, currentPieceRef.current.shape, newPos))
       setPos(newPos);
-    }
   }, []);
 
   const moveRight = useCallback(() => {
     const newPos = { x: posRef.current.x + 1, y: posRef.current.y };
-    if (currentPieceRef.current && isValidPosition(boardRef.current, currentPieceRef.current.shape, newPos)) {
+    if (currentPieceRef.current && isValidPosition(boardRef.current, currentPieceRef.current.shape, newPos))
       setPos(newPos);
-    }
   }, []);
 
   const moveDown = useCallback(() => {
@@ -133,17 +121,15 @@ export default function useTextris(onGameOver) {
   const rotate = useCallback(() => {
     if (!currentPieceRef.current) return;
     const rotated = rotatePiece(currentPieceRef.current.shape);
-    if (isValidPosition(boardRef.current, rotated, posRef.current)) {
+    if (isValidPosition(boardRef.current, rotated, posRef.current))
       setCurrentPiece(p => ({ ...p, shape: rotated }));
-    }
   }, []);
 
   const hardDrop = useCallback(() => {
     if (!currentPieceRef.current) return;
     let dropPos = { ...posRef.current };
-    while (isValidPosition(boardRef.current, currentPieceRef.current.shape, { ...dropPos, y: dropPos.y + 1 })) {
+    while (isValidPosition(boardRef.current, currentPieceRef.current.shape, { ...dropPos, y: dropPos.y + 1 }))
       dropPos.y++;
-    }
     const dropped = dropPos.y - posRef.current.y;
     setScore(s => s + dropped * 2);
     setPos(dropPos);
@@ -152,41 +138,21 @@ export default function useTextris(onGameOver) {
 
   const startGame = useCallback(() => {
     setBoard(createEmptyBoard());
-    setScore(0);
-    setLevel(0);
-    setLines(0);
-    setTime(0);
-    setGameOver(false);
-    setCurrentPiece(null);
+    setScore(0); setLevel(0); setLines(0); setTime(0);
+    setGameOver(false); setCurrentPiece(null);
     setNextPiece(randomTetromino());
     setRunning(true);
   }, []);
 
-  const pauseGame = useCallback(() => {
-    setRunning(r => !r);
-  }, []);
+  const pauseGame = useCallback(() => setRunning(r => !r), []);
 
   const ghost = currentPiece ? getGhostPosition(board, currentPiece.shape, pos) : null;
 
   return {
-    board,
-    currentPiece,
-    nextPiece,
-    pos,
-    ghost,
-    score,
-    level,
-    lines,
-    time,
-    running,
-    gameOver,
-    highscores,
-    startGame,
-    pauseGame,
-    moveLeft,
-    moveRight,
-    moveDown,
-    rotate,
-    hardDrop,
+    board, currentPiece, nextPiece, pos, ghost,
+    score, level, lines, time,
+    running, gameOver, highscores,
+    startGame, pauseGame,
+    moveLeft, moveRight, moveDown, rotate, hardDrop,
   };
 }

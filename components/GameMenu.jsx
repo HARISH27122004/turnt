@@ -1,24 +1,36 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import styles from '../styles/GameMenu.module.css';
 import { GAMES, INITIAL_HIGHSCORES, GRAND_CHAMPIONS } from '../utils/constants';
 
 export default function GameMenu({ onStartGame, highscores }) {
   const [selectedIndex, setSelectedIndex] = useState(0);
 
-  const handleKeyDown = (e) => {
-    if (e.key === 'ArrowUp') {
-      setSelectedIndex(i => Math.max(0, i - 1));
-    } else if (e.key === 'ArrowDown') {
-      setSelectedIndex(i => Math.min(GAMES.length - 1, i + 1));
-    } else if (e.key === 'Enter') {
-      if (GAMES[selectedIndex] === 'TEXTRIS') {
-        onStartGame();
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === 'ArrowUp') {
+        setSelectedIndex(i => Math.max(0, i - 1));
+      } else if (e.key === 'ArrowDown') {
+        setSelectedIndex(i => Math.min(GAMES.length - 1, i + 1));
+      } else if (e.key === 'Enter') {
+        const game = GAMES[selectedIndex];
+        if (game === 'TEXTRIS' || game === 'SNEKST') {
+          onStartGame(game);
+        }
       }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [selectedIndex, onStartGame]);
+
+  const handleClick = (game, i) => {
+    setSelectedIndex(i);
+    if (game === 'TEXTRIS' || game === 'SNEKST') {
+      onStartGame(game);
     }
   };
 
   return (
-    <div className={styles.menuLayout} onKeyDown={handleKeyDown} tabIndex={0}>
+    <div className={styles.menuLayout}>
       {/* Left: Game Select */}
       <div className={styles.section}>
         <div className={styles.sectionLabel}>PLAY</div>
@@ -26,14 +38,12 @@ export default function GameMenu({ onStartGame, highscores }) {
           {GAMES.map((game, i) => (
             <li
               key={game}
-              className={`${styles.gameItem} ${i === selectedIndex ? styles.active : ''}`}
-              onClick={() => {
-                setSelectedIndex(i);
-                if (game === 'TEXTRIS') onStartGame();
-              }}
+              className={`${styles.gameItem} ${i === selectedIndex ? styles.active : ''} ${game === 'PAKKU' ? styles.disabled : ''}`}
+              onClick={() => handleClick(game, i)}
             >
               <span className={styles.bullet}>{i === selectedIndex ? '●' : '○'}</span>
               {game}
+              {game === 'PAKKU' && <span className={styles.soon}> (SOON)</span>}
             </li>
           ))}
         </ul>
