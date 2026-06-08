@@ -1,0 +1,69 @@
+.boardWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  position: relative;
+}
+
+.board {
+  display: block;
+  border: 1px solid #1a1aff;
+  box-shadow: 0 0 18px rgba(26,26,255,0.25);
+}
+
+.wall  { fill: #1a1aff; }
+.empty { fill: #000; }
+
+.dot {
+  fill: #ffb8ae;
+}
+
+.power {
+  fill: #ffb8ae;
+  animation: powerPulse 0.6s ease-in-out infinite alternate;
+}
+
+@keyframes powerPulse {
+  from { opacity: 1;   r: 5; }
+  to   { opacity: 0.5; r: 6; }
+}
+
+.pacman { fill: #ffe000; }
+
+.gameOverText {
+  font-family: 'Press Start 2P', 'Courier New', monospace;
+  font-size: 22px;
+  fill: #fff;
+  filter: drop-shadow(3px 3px 0 #222) drop-shadow(-3px -3px 0 #222) drop-shadow(3px -3px 0 #222) drop-shadow(-3px 3px 0 #222);
+}
+
+/* Button inside foreignObject */
+.restartBtnSvg {
+  font-family: 'Press Start 2P', 'Courier New', monospace !important;
+  font-size: 10px !important;
+  letter-spacing: 0.15em;
+  color: #111 !important;
+  background: #fff !important;
+  border: none !important;
+  padding: 11px 22px !important;
+  cursor: pointer;
+  box-shadow: 4px 4px 0 #888;
+  text-decoration: none !important;
+  transition: transform 0.08s, box-shadow 0.08s;
+}
+
+.restartBtnSvg:hover {
+  background: #e0e0e0 !important;
+  box-shadow: 2px 2px 0 #888;
+  transform: translate(2px, 2px);
+  text-decoration: none !important;
+}
+
+.restartBtnSvg:active {
+  transform: translate(4px, 4px);
+  box-shadow: none;
+}
+
+@media (max-width: 768px) {
+  .gameOverText { font-size: 16px; }
+}

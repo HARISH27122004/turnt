@@ -1,0 +1,48 @@
+.gameLayout {
+  display: grid;
+  grid-template-columns: 160px 1fr 160px;
+  grid-template-areas: "sidebar board panel";
+  gap: 0 20px;
+  padding: 30px 20px;
+  min-height: calc(100vh - var(--navbar-height));
+  align-items: start;
+}
+
+.sidebarArea  { grid-area: sidebar; }
+.boardArea    { grid-area: board; position: relative; display: flex; justify-content: center; }
+.rightPanel   { grid-area: panel; display: flex; flex-direction: column; gap: 24px; }
+.mobileControlsArea { display: none; }
+
+.pauseOverlay {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 13px; letter-spacing: 0.3em;
+  color: var(--text);
+  z-index: 10;
+  background: rgba(13,13,13,0.85);
+  padding: 8px 20px;
+  pointer-events: none;
+}
+
+@media (max-width: 1100px) {
+  .gameLayout {
+    grid-template-columns: 130px 1fr 130px;
+    padding: 20px 14px; gap: 0 14px;
+  }
+}
+
+@media (max-width: 768px) {
+  .gameLayout {
+    grid-template-columns: 1fr;
+    grid-template-areas: "panel" "board" "sidebar" "mobile";
+    grid-template-rows: auto auto auto auto;
+    padding: 14px 10px; gap: 14px;
+  }
+  .rightPanel { flex-direction: row; flex-wrap: wrap; gap: 12px; }
+  .mobileControlsArea { grid-area: mobile; display: block; }
+}
+
+@media (max-width: 480px) {
+  .gameLayout { padding: 8px 6px; gap: 10px; }
+}

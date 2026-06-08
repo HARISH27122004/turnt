@@ -12,10 +12,7 @@ export default function GameMenu({ onStartGame, highscores }) {
       } else if (e.key === 'ArrowDown') {
         setSelectedIndex(i => Math.min(GAMES.length - 1, i + 1));
       } else if (e.key === 'Enter') {
-        const game = GAMES[selectedIndex];
-        if (game === 'TEXTRIS' || game === 'SNEKST') {
-          onStartGame(game);
-        }
+        onStartGame(GAMES[selectedIndex]);
       }
     };
     window.addEventListener('keydown', handleKeyDown);
@@ -24,26 +21,22 @@ export default function GameMenu({ onStartGame, highscores }) {
 
   const handleClick = (game, i) => {
     setSelectedIndex(i);
-    if (game === 'TEXTRIS' || game === 'SNEKST') {
-      onStartGame(game);
-    }
+    onStartGame(game);
   };
 
   return (
     <div className={styles.menuLayout}>
-      {/* Left: Game Select */}
       <div className={styles.section}>
         <div className={styles.sectionLabel}>PLAY</div>
         <ul className={styles.gameList}>
           {GAMES.map((game, i) => (
             <li
               key={game}
-              className={`${styles.gameItem} ${i === selectedIndex ? styles.active : ''} ${game === 'PAKKU' ? styles.disabled : ''}`}
+              className={`${styles.gameItem} ${i === selectedIndex ? styles.active : ''}`}
               onClick={() => handleClick(game, i)}
             >
               <span className={styles.bullet}>{i === selectedIndex ? '●' : '○'}</span>
               {game}
-              {game === 'PAKKU' && <span className={styles.soon}> (SOON)</span>}
             </li>
           ))}
         </ul>
@@ -53,7 +46,6 @@ export default function GameMenu({ onStartGame, highscores }) {
         </div>
       </div>
 
-      {/* Center: Highscores */}
       <div className={styles.section}>
         <div className={styles.sectionLabel}>HIGHSCORES</div>
         <ol className={styles.scoreList}>
@@ -67,7 +59,6 @@ export default function GameMenu({ onStartGame, highscores }) {
         </ol>
       </div>
 
-      {/* Right: Grand Champions */}
       <div className={styles.section}>
         <div className={styles.sectionLabel}>GRAND CHAMPIONS</div>
         <ol className={styles.scoreList}>
