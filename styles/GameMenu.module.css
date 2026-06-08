@@ -1,0 +1,119 @@
+.menuLayout {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 40px;
+  padding: 40px 20px;
+  min-height: calc(100vh - var(--navbar-height));
+  outline: none;
+}
+
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.sectionLabel {
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  color: var(--text);
+  margin-bottom: 8px;
+}
+
+.gameList {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.gameItem {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  cursor: pointer;
+  padding: 2px 0;
+  color: var(--text);
+}
+
+.gameItem:hover {
+  color: var(--accent);
+}
+
+.gameItem.active {
+  color: var(--accent);
+}
+
+.bullet {
+  font-size: 10px;
+  width: 12px;
+  display: inline-block;
+}
+
+.instructions {
+  margin-top: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  font-size: 11px;
+  color: var(--dim);
+  letter-spacing: 0.05em;
+}
+
+.scoreList {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.scoreItem {
+  display: flex;
+  gap: 8px;
+  font-size: 11px;
+  letter-spacing: 0.05em;
+  align-items: baseline;
+}
+
+.rank {
+  color: var(--dim);
+  width: 20px;
+  text-align: right;
+  flex-shrink: 0;
+}
+
+.scoreName {
+  width: 36px;
+  color: var(--text);
+  flex-shrink: 0;
+}
+
+.scoreValue {
+  color: var(--text);
+  text-align: right;
+  flex: 1;
+}
+
+@media (max-width: 900px) {
+  .menuLayout {
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    padding: 24px 16px;
+  }
+
+  .section:last-child {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 600px) {
+  .menuLayout {
+    grid-template-columns: 1fr;
+    gap: 28px;
+    padding: 20px 16px;
+  }
+
+  .section:last-child {
+    grid-column: 1;
+  }
+}

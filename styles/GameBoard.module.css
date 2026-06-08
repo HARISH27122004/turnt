@@ -1,0 +1,68 @@
+.boardWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  overflow: hidden;
+}
+
+.board {
+  font-family: var(--font);
+  font-size: 11px;
+  line-height: 1.0;
+  letter-spacing: 0.12em;
+  white-space: pre;
+  display: inline-block;
+}
+
+.row {
+  display: flex;
+}
+
+.cell {
+  display: inline-block;
+  width: 1ch;
+  text-align: center;
+  user-select: none;
+}
+
+.empty {
+  color: white;
+}
+
+.ghost {
+  color: #2a2a2a;
+}
+
+.filled {
+  color: var(--text);
+}
+
+@media (max-width: 1024px) {
+  .board {
+    font-size: 9px;
+  }
+
+  .cell {
+    width: 7.5px;
+  }
+}
+
+@media (max-width: 600px) {
+  .board {
+    font-size: 7px;
+  }
+
+  .cell {
+    width: 6px;
+  }
+}
+
+@media (max-width: 400px) {
+  .board {
+    font-size: 5.5px;
+  }
+
+  .cell {
+    width: 4.5px;
+  }
+}

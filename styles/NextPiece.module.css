@@ -1,0 +1,30 @@
+.nextPiece {
+  margin-top: 20px;
+}
+
+.preview {
+  font-family: var(--font);
+  font-size: 11px;
+  line-height: 1.3;
+  letter-spacing: 0.08em;
+  white-space: pre;
+}
+
+.row {
+  display: flex;
+}
+
+.cell {
+  display: inline-block;
+  width: 9px;
+  text-align: center;
+  user-select: none;
+}
+
+.filled {
+  color: var(--text);
+}
+
+.empty {
+  color: transparent;
+}
